@@ -93,12 +93,12 @@ export default function Home() {
           </div>
 
           <div className="relative mt-6 lg:mt-0">
-            <div className="relative w-full aspect-[4/3] sm:aspect-square max-w-xs sm:max-w-sm lg:max-w-lg mx-auto">
-               <div className="relative h-full w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl flex items-center justify-center overflow-hidden hover:bg-white/10 transition-colors duration-500">
+            <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-lg mx-auto">
+               <div className="relative w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden hover:bg-white/10 transition-colors duration-500">
                   <img 
                     src={brandImg} 
                     alt="Manatech Brand" 
-                    className="w-full h-full object-cover"
+                    className="w-full h-auto block"
                   />
                </div>
             </div>
