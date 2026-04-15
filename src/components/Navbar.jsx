@@ -37,7 +37,7 @@ export default function Navbar() {
           : 'bg-transparent py-5'
       }`}
     >
-      <div className="container mx-auto px-6 flex items-center justify-between">
+      <div className="container mx-auto px-4 sm:px-6 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-3 group" aria-label="Manatech Home">
           <div className={`w-11 h-11 rounded-xl overflow-hidden border-2 transition-all duration-300 bg-white flex items-center justify-center ${scrolled ? 'border-manatech-blue/10 shadow-md' : 'border-white/20 shadow-xl'}`}>
             <Logo size={30} />

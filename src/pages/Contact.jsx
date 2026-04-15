@@ -91,7 +91,7 @@ export default function Contact() {
   return (
     <div className="flex flex-col w-full bg-white">
       {/* Header - Modern Header with Background */}
-      <section className="relative pt-48 pb-32 overflow-hidden text-white">
+      <section className="relative pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">
            <img 
              src="https://images.unsplash.com/photo-1534536281715-e28d76689b4d?auto=format&fit=crop&q=80&w=1600" 
@@ -101,17 +101,17 @@ export default function Contact() {
            <div className="absolute inset-0 bg-manatech-blue/90" />
         </div>
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div className="max-w-3xl space-y-6 text-center md:text-left">
             <div className="inline-flex items-center gap-2 text-manatech-orange text-xs font-bold uppercase tracking-[0.3em] bg-white/10 px-4 py-2 rounded-full border border-white/20 backdrop-blur-md">
               <Zap size={14} />
               <span>Deployment Channels</span>
             </div>
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight leading-tight">
                Connect with <br />
                <span className="text-blue-200">Us Now.</span>
             </h1>
-            <p className="text-lg md:text-xl text-blue-100/80 leading-relaxed max-w-2xl font-medium">
+            <p className="text-base sm:text-lg md:text-xl text-blue-100/80 leading-relaxed max-w-2xl font-medium">
                Have a project briefing or technical requirement? Secure your consultation and start scaling today.
             </p>
           </div>
@@ -119,11 +119,11 @@ export default function Contact() {
       </section>
 
       {/* Contact Grid - Modern Split Page */}
-      <section className="container mx-auto px-6 py-24 mb-32 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-24 mb-16 sm:mb-24 md:mb-32 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12">
           
           {/* Information Block - Modern Floating Card */}
-          <div className="lg:col-span-4 bg-manatech-blue p-12 rounded-[2.5rem] text-white space-y-16 shadow-2xl relative overflow-hidden group h-fit">
+          <div className="lg:col-span-4 bg-manatech-blue p-8 sm:p-10 md:p-12 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] text-white space-y-10 sm:space-y-12 md:space-y-16 shadow-2xl relative overflow-hidden group h-fit">
             <div className="absolute inset-0 z-0">
                <img 
                  src="https://images.unsplash.com/photo-1523966211575-eb4a01e7dd51?auto=format&fit=crop&q=80&w=800" 
@@ -134,7 +134,7 @@ export default function Contact() {
             </div>
             
             <div className="space-y-4 relative z-10">
-              <h3 className="text-3xl font-bold tracking-tight uppercase">Direct Channels</h3>
+              <h3 className="text-2xl sm:text-3xl font-bold tracking-tight uppercase">Direct Channels</h3>
               <p className="text-blue-100/60 text-xs font-bold uppercase tracking-widest">
                 Operational team typically responds within <span className="text-white">4 business hours</span>.
               </p>
@@ -180,7 +180,7 @@ export default function Contact() {
           </div>
 
           {/* Form Block */}
-          <div className="lg:col-span-8 bg-slate-50 p-12 md:p-16 rounded-[2.5rem] border border-border/60 shadow-xl shadow-slate-200/50">
+          <div className="lg:col-span-8 bg-slate-50 p-8 sm:p-10 md:p-12 lg:p-16 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] border border-border/60 shadow-xl shadow-slate-200/50">
             <AnimatePresence mode="wait">
               {isSuccess ? (
                 <div className="flex flex-col items-center justify-center py-24 text-center space-y-6">
@@ -221,9 +221,9 @@ export default function Contact() {
 
                   <div className="space-y-4 text-center">
                      <Label className="text-xs font-bold uppercase tracking-widest text-slate-400 block">Service Infrastructure</Label>
-                     <div className="flex flex-wrap justify-center gap-3">
+                     <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                         {['IT Support', 'Data Analysis', 'Online Tutoring', 'Graphic Design', 'Other'].map((s) => (
-                          <button key={s} type="button" onClick={() => setFormData(p => ({...p, service: s}))} className={`px-6 py-3 text-xs font-bold uppercase tracking-widest rounded-xl border-2 transition-all duration-300 ${formData.service === s ? 'bg-manatech-blue border-manatech-blue text-white shadow-xl shadow-manatech-blue/20' : 'bg-white border-border/40 text-slate-400 hover:border-manatech-blue/30 hover:text-manatech-blue'}`}>
+                          <button key={s} type="button" onClick={() => setFormData(p => ({...p, service: s}))} className={`px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${formData.service === s ? 'bg-manatech-blue border-manatech-blue text-white shadow-xl shadow-manatech-blue/20' : 'bg-white border-border/40 text-slate-400 hover:border-manatech-blue/30 hover:text-manatech-blue'}`}>
                             {s}
                           </button>
                         ))}
@@ -235,7 +235,7 @@ export default function Contact() {
                      <Textarea id="message" placeholder="Describe your project requirement or inquiry in detail..." value={formData.message} onChange={handleChange} className={`min-h-[160px] rounded-2xl border-0 border-b-2 bg-white px-6 py-5 transition-all focus:ring-4 focus:ring-manatech-blue/5 ${errors.message ? 'border-destructive' : 'border-border/40 focus:border-manatech-blue'}`} />
                   </div>
 
-                  <Button disabled={isSubmitting} className="w-full h-16 bg-manatech-blue text-white rounded-2xl text-sm font-bold uppercase tracking-[0.4em] shadow-2xl shadow-manatech-blue/20 transition-all hover:-translate-y-1 hover:bg-slate-900 disabled:opacity-50">
+                  <Button disabled={isSubmitting} className="w-full h-12 sm:h-14 md:h-16 bg-manatech-blue text-white rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold uppercase tracking-[0.2em] sm:tracking-[0.4em] shadow-2xl shadow-manatech-blue/20 transition-all hover:-translate-y-1 hover:bg-slate-900 disabled:opacity-50">
                     {isSubmitting ? 'Transmitting Data...' : 'Submit Engagement Brief'}
                   </Button>
                 </form>
@@ -247,22 +247,22 @@ export default function Contact() {
       </section>
 
       {/* Modern Operational Info */}
-      <section className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 py-24 border-t border-border/40 relative z-10">
-         <div className="flex items-center gap-6 p-10 rounded-[2.5rem] bg-slate-50 border border-border/40 group hover:bg-white transition-colors duration-500 hover:shadow-xl hover:shadow-slate-200/50">
-            <div className="w-16 h-16 rounded-2xl bg-manatech-blue/10 flex items-center justify-center text-manatech-blue shrink-0 group-hover:bg-manatech-blue group-hover:text-white transition-all">
-               <Clock size={28} />
+      <section className="container mx-auto px-4 sm:px-6 grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 md:gap-12 py-16 sm:py-20 md:py-24 border-t border-border/40 relative z-10">
+         <div className="flex items-center gap-4 sm:gap-6 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] bg-slate-50 border border-border/40 group hover:bg-white transition-colors duration-500 hover:shadow-xl hover:shadow-slate-200/50">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-manatech-blue/10 flex items-center justify-center text-manatech-blue shrink-0 group-hover:bg-manatech-blue group-hover:text-white transition-all">
+               <Clock size={24} />
             </div>
             <div className="space-y-1">
-               <h4 className="font-bold text-xl tracking-tight text-manatech-blue uppercase">Service Availability</h4>
+               <h4 className="font-bold text-base sm:text-lg md:text-xl tracking-tight text-manatech-blue uppercase">Service Availability</h4>
                <p className="text-sm text-slate-500 font-medium">Monday – Friday: 08:00 – 18:00 <br /> Saturday: 09:00 – 16:00</p>
             </div>
          </div>
-         <div className="flex items-center gap-6 p-10 rounded-[2.5rem] bg-slate-50 border border-border/40 group hover:bg-white transition-colors duration-500 hover:shadow-xl hover:shadow-slate-200/50">
-            <div className="w-16 h-16 rounded-2xl bg-manatech-orange/10 flex items-center justify-center text-manatech-orange shrink-0 group-hover:bg-manatech-orange group-hover:text-white transition-all">
-               <MapPin size={28} />
+         <div className="flex items-center gap-4 sm:gap-6 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] bg-slate-50 border border-border/40 group hover:bg-white transition-colors duration-500 hover:shadow-xl hover:shadow-slate-200/50">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-xl sm:rounded-2xl bg-manatech-orange/10 flex items-center justify-center text-manatech-orange shrink-0 group-hover:bg-manatech-orange group-hover:text-white transition-all">
+               <MapPin size={24} />
             </div>
             <div className="space-y-1">
-               <h4 className="font-bold text-xl tracking-tight text-manatech-blue uppercase">Headquarters</h4>
+               <h4 className="font-bold text-base sm:text-lg md:text-xl tracking-tight text-manatech-blue uppercase">Headquarters</h4>
                <p className="text-sm text-slate-500 font-medium">{CONTACT_INFO.location}</p>
             </div>
          </div>

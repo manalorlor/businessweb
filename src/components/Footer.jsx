@@ -15,7 +15,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer id="site-footer" className="bg-manatech-dark text-white pt-20 pb-8 overflow-hidden relative">
+    <footer id="site-footer" className="bg-manatech-dark text-white pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 overflow-hidden relative">
       {/* Top gradient line */}
       <div className="absolute top-0 left-0 w-full h-1 gradient-bg" />
       
@@ -23,8 +23,8 @@ export default function Footer() {
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-manatech-teal/5 rounded-full blur-3xl" />
       <div className="absolute -top-32 -left-32 w-72 h-72 bg-manatech-orange/5 rounded-full blur-3xl" />
 
-      <div className="container mx-auto px-6 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-3 group">
@@ -161,7 +161,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-blue-200/50">
+        <div className="pt-6 sm:pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4 text-xs text-blue-200/50">
           <p>© {currentYear} MANATECH. All rights reserved.</p>
           <p className="flex items-center gap-1">
             Designed for a <span className="text-manatech-teal font-semibold">SMARTER</span> future.
