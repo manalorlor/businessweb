@@ -78,7 +78,15 @@ export default function Navbar() {
               )}
             </Link>
           ))}
-
+          
+          <div className="ml-4 pl-4 border-l border-current/20 flex items-center">
+            <Link 
+              to="/pay" 
+              className={`px-5 py-2 text-sm font-bold rounded-lg transition-all duration-300 border-2 ${scrolled ? 'border-manatech-orange text-manatech-orange hover:bg-manatech-orange hover:text-white' : 'border-white text-white hover:bg-white hover:text-manatech-blue'}`}
+            >
+              Pay Invoice
+            </Link>
+          </div>
         </div>
 
         {/* Mobile Toggle */}
@@ -120,12 +128,21 @@ export default function Navbar() {
                   {link.name}
                 </Link>
               ))}
-              <Button
-                asChild
-                className="bg-manatech-blue hover:bg-manatech-blue/90 text-white w-full mt-3 rounded-xl h-12"
-              >
-                <Link to="/contact">Get Started</Link>
-              </Button>
+              <div className="flex gap-2 w-full mt-3">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="w-1/2 rounded-xl h-12 border-manatech-blue text-manatech-blue hover:bg-manatech-blue hover:text-white"
+                >
+                  <Link to="/pay">Pay Invoice</Link>
+                </Button>
+                <Button
+                  asChild
+                  className="bg-manatech-blue hover:bg-manatech-blue/90 text-white w-1/2 rounded-xl h-12"
+                >
+                  <Link to="/contact">Get Started</Link>
+                </Button>
+              </div>
             </div>
           </motion.div>
         )}
