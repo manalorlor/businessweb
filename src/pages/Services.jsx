@@ -47,7 +47,7 @@ export default function Services() {
       <section className="relative pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">
            <img 
-             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600" 
+             src="/images/backgrounds/office.jpg" 
              alt="Services Background"
              className="w-full h-full object-cover"
            />

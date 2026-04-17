@@ -47,7 +47,7 @@ export const SERVICES = [
     id: 'online-tutoring',
     title: 'Online Tutoring',
     icon: GraduationCap,
-    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=800',
+    image: '/images/online-tutoring.jpg',
     description:
       'Empowering students and professionals with essential digital skills through personalized learning.',
     features: [
@@ -77,7 +77,7 @@ export const SERVICES = [
     id: 'project-assist',
     title: 'Project Work Assist',
     icon: Briefcase,
-    image: 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&q=80&w=800',
+    image: '/images/project-assist.jpg',
     description:
       'Expert guidance for CS & IT academic and professional projects, from concept to execution.',
     features: [

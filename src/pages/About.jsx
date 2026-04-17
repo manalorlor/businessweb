@@ -21,7 +21,7 @@ export default function About() {
       <section className="relative pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">
            <img 
-             src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1600" 
+             src="/images/backgrounds/team.jpg" 
              alt="About Hero Background"
              className="w-full h-full object-cover"
            />
@@ -52,7 +52,7 @@ export default function About() {
           <div className="bg-manatech-blue p-8 sm:p-12 md:p-16 rounded-2xl sm:rounded-[2rem] md:rounded-[2.5rem] text-white flex flex-col justify-between min-h-[320px] sm:min-h-[400px] md:min-h-[450px] shadow-2xl relative overflow-hidden group">
              <div className="absolute inset-0 z-0 opacity-20 transition-transform duration-700 group-hover:scale-105">
                 <img 
-                  src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1000" 
+                  src="/images/backgrounds/hero-tech.jpg" 
                   alt="Vision Background"
                   className="w-full h-full object-cover"
                 />
@@ -100,7 +100,7 @@ export default function About() {
       <section className="py-20 sm:py-24 md:py-32 text-white relative overflow-hidden bg-manatech-blue">
         <div className="absolute inset-0 z-0">
            <img 
-             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600" 
+             src="/images/backgrounds/office.jpg" 
              alt="Culture Background"
              className="w-full h-full object-cover opacity-10"
            />

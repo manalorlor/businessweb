@@ -41,7 +41,7 @@ export default function Home() {
         {/* Hero Background Image with Overlay */}
         <div className="absolute inset-0 z-0">
            <img 
-             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1600" 
+             src="/images/backgrounds/hero-tech.jpg" 
              alt="Technology Background"
              className="w-full h-full object-cover"
            />
@@ -160,7 +160,7 @@ export default function Home() {
       <section id="why-us" className="py-16 sm:py-20 md:py-24 bg-manatech-blue text-white overflow-hidden relative">
         <div className="absolute inset-0 z-0">
            <img 
-             src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1600" 
+             src="/images/backgrounds/office.jpg" 
              alt="Office Background"
              className="w-full h-full object-cover opacity-20"
            />
@@ -258,7 +258,7 @@ export default function Home() {
             {/* CTA Background Image */}
             <div className="absolute inset-0 z-0">
                <img 
-                 src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=1600" 
+                 src="/images/backgrounds/team.jpg" 
                  alt="Contact Background"
                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
                />
