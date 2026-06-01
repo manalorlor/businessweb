@@ -6,6 +6,9 @@ import {
   Database,
   Zap,
   GraduationCap,
+  ChevronLeft,
+  ChevronRight,
+  Send,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -13,6 +16,43 @@ import { SERVICES, WHY_CHOOSE_US, TESTIMONIALS } from '@/constants';
 import { Link } from 'react-router-dom';
 import Logo from '@/components/Logo';
 import brandImg from '@/brand.jpg';
+import brandServicesImg from '@/brand-services.jpg';
+import { useState, useEffect, useRef } from 'react';
+/* Animated counter — animates from 0 to target when scrolled into view */
+function AnimatedCounter({ value }) {
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+  const match = String(value).match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : '';
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const duration = 1600;
+          const start = performance.now();
+          const animate = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 /* Reusable section heading - Modern Centered */
 function SectionHeading({ label, title, description, light = false }) {
@@ -33,7 +73,184 @@ function SectionHeading({ label, title, description, light = false }) {
   );
 }
 
+/* Modern Carousel Component */
+function FlyerCarousel({ images }) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 6000); // Auto-slide every 6 seconds
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  const handlePrev = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+  };
+
+  return (
+    <div className="relative w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden group">
+      {/* Slides Container */}
+      <div 
+        className="flex transition-transform duration-700 ease-in-out" 
+        style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+      >
+        {images.map((img, idx) => (
+          <div key={idx} className="w-full shrink-0">
+            <img 
+              src={img} 
+              alt={`Manatech Flyer ${idx + 1}`} 
+              className="w-full h-auto block object-cover"
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Navigation Arrows */}
+      <button 
+        onClick={handlePrev}
+        className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/35 hover:bg-manatech-orange text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm cursor-pointer z-20"
+        aria-label="Previous Slide"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      <button 
+        onClick={handleNext}
+        className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/35 hover:bg-manatech-orange text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 backdrop-blur-sm cursor-pointer z-20"
+        aria-label="Next Slide"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      {/* Dots Indicator */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+        {images.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentIndex(idx)}
+            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-manatech-orange w-6' : 'bg-white/50 hover:bg-white'}`}
+            aria-label={`Go to slide ${idx + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/* Testimonial Submission Form */
+function TestimonialForm() {
+  const [form, setForm] = useState({ name: '', role: '', message: '' });
+  const [state, setState] = useState('idle'); // 'idle'|'loading'|'success'
+
+  const handleChange = (e) => setForm((p) => ({ ...p, [e.target.name]: e.target.value }));
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.name.trim() || !form.message.trim()) return;
+    setState('loading');
+    try {
+      const res = await fetch('https://formspree.io/f/mjgpqgda', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          role: form.role.trim(),
+          message: form.message.trim(),
+          _subject: 'New Testimonial Submission',
+        }),
+      });
+      setState(res.ok ? 'success' : 'idle');
+    } catch {
+      setState('idle');
+    }
+  };
+
+  return (
+    <div className="glass-card rounded-3xl p-8 sm:p-10 space-y-6">
+      <div className="text-center space-y-2">
+        <span className="text-xs font-bold uppercase tracking-[0.2em] text-manatech-orange">
+          Share Your Story
+        </span>
+        <h3 className="text-2xl font-bold text-manatech-blue">Loved working with us?</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          We&apos;d love to hear from you. Your feedback inspires us to keep delivering excellence.
+        </p>
+      </div>
+
+      {state === 'success' ? (
+        <div className="text-center py-6 space-y-3">
+          <div className="w-14 h-14 rounded-full bg-manatech-teal/10 flex items-center justify-center mx-auto text-manatech-teal">
+            <CheckCircle2 size={28} />
+          </div>
+          <p className="font-bold text-manatech-blue">Thank you for your testimonial!</p>
+          <p className="text-sm text-muted-foreground">We&apos;ll review and feature it on our site.</p>
+          <button
+            onClick={() => { setState('idle'); setForm({ name: '', role: '', message: '' }); }}
+            className="text-xs font-bold uppercase tracking-widest text-manatech-blue underline underline-offset-4 hover:text-manatech-orange transition-colors cursor-pointer"
+          >
+            Submit another
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Full Name *</label>
+              <input
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+                maxLength={60}
+                placeholder="e.g. Ama Serwaa"
+                className="w-full h-12 px-4 rounded-xl border border-border/40 bg-slate-50 text-sm focus:outline-none focus:border-manatech-blue/40 focus:ring-2 focus:ring-manatech-blue/5 transition-all"
+              />
+            </div>
+            <div className="space-y-1.5">
+              <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Role / Company</label>
+              <input
+                name="role"
+                value={form.role}
+                onChange={handleChange}
+                maxLength={80}
+                placeholder="e.g. CEO, StartupGH"
+                className="w-full h-12 px-4 rounded-xl border border-border/40 bg-slate-50 text-sm focus:outline-none focus:border-manatech-blue/40 focus:ring-2 focus:ring-manatech-blue/5 transition-all"
+              />
+            </div>
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">Your Experience *</label>
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              required
+              maxLength={500}
+              rows={4}
+              placeholder="Share how Manatech helped you or your organisation..."
+              className="w-full px-4 py-3 rounded-xl border border-border/40 bg-slate-50 text-sm resize-none focus:outline-none focus:border-manatech-blue/40 focus:ring-2 focus:ring-manatech-blue/5 transition-all"
+            />
+          </div>
+          <Button
+            type="submit"
+            disabled={state === 'loading'}
+            className="w-full h-12 bg-manatech-blue text-white rounded-xl text-xs font-bold uppercase tracking-widest shadow-xl hover:-translate-y-0.5 transition-all disabled:opacity-60"
+          >
+            <Send size={14} className="mr-2" />
+            {state === 'loading' ? 'Submitting...' : 'Submit Testimonial'}
+          </Button>
+        </form>
+      )}
+    </div>
+  );
+}
+
 export default function Home() {
+
   return (
     <div className="flex flex-col w-full">
       {/* Hero Section - Modern Premium with Background Image */}
@@ -76,31 +293,24 @@ export default function Home() {
 
             <div className="flex items-center gap-6 sm:gap-10 pt-8 sm:pt-10 border-t border-white/10">
                <div className="space-y-1">
-                  <div className="text-xl sm:text-2xl font-bold text-white">100%</div>
+                  <div className="text-xl sm:text-2xl font-bold text-white">
+                    <AnimatedCounter value="100%" />
+                  </div>
                   <div className="text-[9px] sm:text-[10px] uppercase tracking-widest font-bold text-blue-200/60">Precision</div>
                </div>
                <div className="w-px h-8 sm:h-10 bg-white/10" />
                <div className="space-y-1">
-                  <div className="text-xl sm:text-2xl font-bold text-white">24/7</div>
+                  <div className="text-xl sm:text-2xl font-bold text-white">
+                    <AnimatedCounter value="24/7" />
+                  </div>
                   <div className="text-[9px] sm:text-[10px] uppercase tracking-widest font-bold text-blue-200/60">Availability</div>
-               </div>
-               <div className="w-px h-8 sm:h-10 bg-white/10" />
-               <div className="space-y-1">
-                  <div className="text-xl sm:text-2xl font-bold text-white">Secure</div>
-                  <div className="text-[9px] sm:text-[10px] uppercase tracking-widest font-bold text-blue-200/60">Infrastructure</div>
                </div>
             </div>
           </div>
 
-          <div className="relative mt-6 lg:mt-0">
+          <div className="relative mt-6 lg:mt-0 w-full">
             <div className="relative w-full max-w-xs sm:max-w-sm lg:max-w-lg mx-auto">
-               <div className="relative w-full bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden hover:bg-white/10 transition-colors duration-500">
-                  <img 
-                    src={brandImg} 
-                    alt="Manatech Brand" 
-                    className="w-full h-auto block"
-                  />
-               </div>
+               <FlyerCarousel images={[brandImg, brandServicesImg]} />
             </div>
           </div>
         </div>
@@ -203,7 +413,9 @@ export default function Home() {
                     { value: '24/7', label: 'Global Support' },
                   ].map((stat, i) => (
                     <div key={stat.label} className={`p-5 sm:p-8 rounded-xl sm:rounded-2xl ${i % 2 === 0 ? 'bg-white text-manatech-blue' : 'bg-white/10 backdrop-blur-md border border-white/10 text-white'} shadow-2xl transition-transform hover:-translate-y-1`}>
-                      <div className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter">{stat.value}</div>
+                      <div className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter">
+                        <AnimatedCounter value={stat.value} />
+                      </div>
                       <div className="text-[10px] font-bold uppercase tracking-widest mt-2 opacity-60">
                         {stat.label}
                       </div>
@@ -247,6 +459,11 @@ export default function Home() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+
+          {/* Testimonial Submission Form */}
+          <div className="mt-16 sm:mt-20 max-w-2xl mx-auto">
+            <TestimonialForm />
           </div>
         </div>
       </section>

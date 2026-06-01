@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import {
   Mail,
@@ -12,13 +12,14 @@ import {
   Zap,
   CheckCircle2,
   Clock,
+  X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
-import { CONTACT_INFO } from '@/constants';
+import { CONTACT_INFO, SERVICES } from '@/constants';
 
 // Rate limiting: track last submission time
 let lastSubmitTime = 0;
@@ -40,6 +41,14 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+
+  // Show response-time toast after 2s, auto-dismiss after 8s
+  useEffect(() => {
+    const show = setTimeout(() => setShowToast(true), 2000);
+    const hide = setTimeout(() => setShowToast(false), 8000);
+    return () => { clearTimeout(show); clearTimeout(hide); };
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -135,6 +144,25 @@ export default function Contact() {
 
   return (
     <div className="flex flex-col w-full bg-white">
+      {/* Response-time toast */}
+      {showToast && (
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[52] flex items-center gap-3 bg-manatech-dark/95 text-white px-5 py-4 rounded-2xl shadow-2xl border border-white/10 backdrop-blur-xl max-w-xs w-full mx-4">
+          <div className="w-8 h-8 rounded-lg bg-manatech-orange/20 flex items-center justify-center text-manatech-orange shrink-0">
+            <Zap size={16} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-bold text-white">Quick Response Guaranteed</p>
+            <p className="text-[11px] text-white/50">We typically reply within 4 business hours.</p>
+          </div>
+          <button
+            onClick={() => setShowToast(false)}
+            className="text-white/30 hover:text-white transition-colors shrink-0 cursor-pointer"
+            aria-label="Dismiss"
+          >
+            <X size={16} />
+          </button>
+        </div>
+      )}
       {/* Header - Modern Header with Background */}
       <section className="relative pt-32 sm:pt-40 md:pt-48 pb-20 sm:pb-24 md:pb-32 overflow-hidden text-white">
         <div className="absolute inset-0 z-0">
@@ -281,11 +309,14 @@ export default function Contact() {
                    <div className="space-y-4 text-center">
                       <Label className="text-xs font-bold uppercase tracking-widest text-slate-400 block">Service Infrastructure</Label>
                       <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
-                         {['IT Support', 'Data Analysis', 'Online Tutoring', 'Graphic Design', 'Other'].map((s) => (
-                           <button key={s} type="button" onClick={() => setFormData(p => ({...p, service: s}))} className={`px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${formData.service === s ? 'bg-manatech-blue border-manatech-blue text-white shadow-xl shadow-manatech-blue/20' : 'bg-white border-border/40 text-slate-400 hover:border-manatech-blue/30 hover:text-manatech-blue'}`}>
-                             {s}
+                         {SERVICES.map((s) => (
+                           <button key={s.id} type="button" onClick={() => setFormData(p => ({...p, service: s.title}))} className={`px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${formData.service === s.title ? 'bg-manatech-blue border-manatech-blue text-white shadow-xl shadow-manatech-blue/20' : 'bg-white border-border/40 text-slate-400 hover:border-manatech-blue/30 hover:text-manatech-blue'}`}>
+                             {s.title}
                            </button>
                          ))}
+                         <button type="button" onClick={() => setFormData(p => ({...p, service: 'Other'}))} className={`px-4 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold uppercase tracking-widest rounded-lg sm:rounded-xl border-2 transition-all duration-300 ${formData.service === 'Other' ? 'bg-manatech-blue border-manatech-blue text-white shadow-xl shadow-manatech-blue/20' : 'bg-white border-border/40 text-slate-400 hover:border-manatech-blue/30 hover:text-manatech-blue'}`}>
+                           Other
+                         </button>
                       </div>
                    </div>
 

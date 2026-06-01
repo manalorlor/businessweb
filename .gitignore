@@ -50,3 +50,14 @@ desktop.ini
 
 # ── Misc ──────────────────────────────────────────────────
 *.tsbuildinfo
+
+# ── Vite / Rollup internals ───────────────────────────────
+.rollup.cache/
+
+# ── Package manager lock files (keep package-lock.json) ───
+yarn.lock
+pnpm-lock.yaml
+
+# ── Temporary / scratch files ─────────────────────────────
+*.tmp
+*.bak

@@ -1,6 +1,6 @@
+@import url('/fonts/fonts.css');
 @import "tailwindcss";
 @import "tw-animate-css";
-@import url('/fonts/fonts.css');
 
 @custom-variant dark (&:is(.dark *));
 

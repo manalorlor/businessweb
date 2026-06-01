@@ -10,6 +10,7 @@ import {
   Headphones,
   CheckCircle2,
   BarChart3,
+  Globe,
 } from 'lucide-react';
 
 export const SERVICES = [
@@ -88,16 +89,31 @@ export const SERVICES = [
     ],
     color: 'manatech-teal',
   },
+  {
+    id: 'web-development',
+    title: 'Website Services',
+    icon: Globe,
+    image: '/images/web-development.png',
+    description:
+      'Professional, modern, and user-friendly websites tailored to build your brand and help your business grow.',
+    features: [
+      'Company & Business Sites',
+      'School & Church Websites',
+      'E-Commerce & Portfolios',
+      'SEO & Mobile Responsive',
+    ],
+    color: 'manatech-orange',
+  },
 ];
 
 
 export const WHY_CHOOSE_US = [
-  { title: 'Satisfaction Guarantee', icon: CheckCircle2 },
-  { title: 'Cost-effective Solutions', icon: Zap },
-  { title: 'Reliable Support', icon: ShieldCheck },
-  { title: 'Fast Delivery', icon: Zap },
-  { title: 'Creative Solutions', icon: Palette },
-  { title: 'Flexible Scheduling', icon: Clock },
+  { title: '100% Satisfaction Guarantee', icon: CheckCircle2 },
+  { title: 'Unique & Creative Designs', icon: Palette },
+  { title: 'Mobile Responsive & SEO Friendly', icon: Zap },
+  { title: 'Fast Loading Speed', icon: Zap },
+  { title: 'Secure & Reliable Support', icon: ShieldCheck },
+  { title: 'Affordable Pricing', icon: Clock },
 ];
 
 export const CONTACT_INFO = {

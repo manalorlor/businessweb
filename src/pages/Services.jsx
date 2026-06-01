@@ -75,7 +75,7 @@ export default function Services() {
       <section className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 md:py-24 mb-16 sm:mb-24 md:mb-32">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {SERVICES.map((service) => (
-            <Card key={service.id} className="glass-card border-none group flex flex-col overflow-hidden">
+            <Card key={service.id} id={service.id} className="glass-card border-none group flex flex-col overflow-hidden">
                <div className="relative h-48 overflow-hidden">
                   <img 
                     src={service.image} 

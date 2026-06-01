@@ -4,6 +4,7 @@ import { CreditCard, CheckCircle2 } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { SERVICES } from '@/constants';
 
 export default function Payment() {
   const [formData, setFormData] = useState({
@@ -67,21 +68,21 @@ export default function Payment() {
   return (
     <div className="flex flex-col w-full bg-slate-50 min-h-screen">
       {/* Header Section */}
-      <section className="relative pt-32 pb-16 overflow-hidden text-white flex-grow-0 flex items-center bg-manatech-blue">
+      <section className="relative pt-28 sm:pt-32 md:pt-40 pb-12 sm:pb-16 overflow-hidden text-white flex-grow-0 flex items-center bg-manatech-blue">
         <div className="container mx-auto px-4 sm:px-6 relative z-10 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">Make a Payment</h1>
-          <p className="text-blue-100/80 max-w-2xl mx-auto">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight mb-4">Make a Payment</h1>
+          <p className="text-blue-100/80 max-w-2xl mx-auto text-sm sm:text-base">
             Securely pay for IT consultations, custom services, or settle an outstanding invoice.
           </p>
         </div>
       </section>
 
       {/* Payment Form Section */}
-      <section className="py-12 flex-grow">
-        <div className="container mx-auto px-4 max-w-3xl">
-          <div className="bg-white p-8 md:p-12 rounded-[2rem] shadow-xl border border-slate-100">
+      <section className="py-8 sm:py-12 flex-grow">
+        <div className="container mx-auto px-4 sm:px-6 max-w-3xl">
+          <div className="bg-white p-6 sm:p-8 md:p-12 rounded-2xl sm:rounded-[2rem] shadow-xl border border-slate-100">
             {isSuccess ? (
-              <div className="text-center py-12 space-y-6">
+              <div className="text-center py-8 sm:py-12 space-y-6">
                 <div className="w-20 h-20 rounded-full bg-green-50 flex items-center justify-center text-green-500 mx-auto">
                   <CheckCircle2 size={40} />
                 </div>
@@ -125,10 +126,9 @@ export default function Payment() {
                       onChange={handleChange}
                       className="flex h-12 w-full rounded-md border border-input bg-slate-50 px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
-                      <option value="IT Support">IT Support</option>
-                      <option value="Data Analysis">Data Analysis</option>
-                      <option value="Online Tutoring">Online Tutoring</option>
-                      <option value="Graphic Design">Graphic Design</option>
+                      {SERVICES.map((s) => (
+                        <option key={s.id} value={s.title}>{s.title}</option>
+                      ))}
                       <option value="Custom Project / Invoice">Custom Project / Pay Invoice</option>
                     </select>
                   </div>

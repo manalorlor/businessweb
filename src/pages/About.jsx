@@ -13,6 +13,43 @@ import {
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Link } from 'react-router-dom';
+import { useRef, useEffect, useState } from 'react';
+
+/* Animated counter — animates from 0 to target when scrolled into view */
+function AnimatedCounter({ value }) {
+  const ref = useRef(null);
+  const hasAnimated = useRef(false);
+  const match = String(value).match(/^(\d+)(.*)$/);
+  const target = match ? parseInt(match[1], 10) : 0;
+  const suffix = match ? match[2] : '';
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasAnimated.current) {
+          hasAnimated.current = true;
+          const duration = 1600;
+          const start = performance.now();
+          const animate = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            // Ease-out cubic
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+}
 
 export default function About() {
   return (
@@ -164,7 +201,7 @@ export default function About() {
             ].map((stat) => (
               <div key={stat.label} className="space-y-2 group text-center lg:text-left">
                 <div className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-manatech-blue tracking-tighter transition-all duration-500 group-hover:text-slate-900">
-                  {stat.value}
+                  <AnimatedCounter value={stat.value} />
                 </div>
                 <div className="text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
                   {stat.label}

@@ -7,12 +7,34 @@ import {
   Linkedin,
   ChevronRight,
   MessageCircle,
+  CheckCircle2,
+  Send,
 } from 'lucide-react';
-import { CONTACT_INFO } from '@/constants';
+import { CONTACT_INFO, SERVICES } from '@/constants';
 import Logo from '@/components/Logo';
+import { useState } from 'react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [newsletterState, setNewsletterState] = useState('idle'); // 'idle'|'loading'|'success'
+
+  const handleNewsletterSubmit = async (e) => {
+    e.preventDefault();
+    if (!newsletterEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newsletterEmail)) return;
+    setNewsletterState('loading');
+    try {
+      const res = await fetch('https://formspree.io/f/mjgpqgda', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email: newsletterEmail, _subject: 'Newsletter Signup' }),
+      });
+      setNewsletterState(res.ok ? 'success' : 'idle');
+      if (res.ok) setNewsletterEmail('');
+    } catch {
+      setNewsletterState('idle');
+    }
+  };
 
   return (
     <footer id="site-footer" className="bg-manatech-dark text-white pt-12 sm:pt-16 md:pt-20 pb-6 sm:pb-8 overflow-hidden relative">
@@ -24,6 +46,40 @@ export default function Footer() {
       <div className="absolute -top-32 -left-32 w-72 h-72 bg-manatech-orange/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
+        {/* Newsletter Row */}
+        <div className="mb-12 sm:mb-16 pb-12 sm:pb-16 border-b border-white/5">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+            <div className="space-y-1">
+              <h4 className="text-base font-bold text-white uppercase tracking-widest">Stay in the Loop</h4>
+              <p className="text-sm text-blue-200/50">Get updates on our latest services, tips and promotions.</p>
+            </div>
+            {newsletterState === 'success' ? (
+              <div className="flex items-center gap-2 text-sm font-bold text-manatech-teal">
+                <CheckCircle2 size={18} />
+                <span>You're subscribed! Thank you.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleNewsletterSubmit} className="flex items-center gap-3 w-full lg:w-auto">
+                <input
+                  type="email"
+                  value={newsletterEmail}
+                  onChange={(e) => setNewsletterEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  required
+                  className="flex-1 lg:w-72 h-11 px-4 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:border-manatech-orange/50 focus:ring-2 focus:ring-manatech-orange/10 transition-all"
+                />
+                <button
+                  type="submit"
+                  disabled={newsletterState === 'loading'}
+                  className="h-11 px-5 rounded-xl bg-manatech-orange text-white text-xs font-bold uppercase tracking-widest hover:bg-manatech-orange/90 transition-all shadow-lg shadow-manatech-orange/20 flex items-center gap-2 shrink-0 disabled:opacity-60 cursor-pointer"
+                >
+                  <Send size={14} />
+                  {newsletterState === 'loading' ? 'Sending...' : 'Subscribe'}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-12 md:mb-16">
           {/* Brand Section */}
           <div className="space-y-6">
@@ -100,14 +156,8 @@ export default function Footer() {
               Our Services
             </h4>
             <ul className="space-y-3">
-              {[
-                'IT Support',
-                'Data Analysis',
-                'Online Tutoring',
-                'Graphic Design',
-                'Project Assist',
-              ].map((item) => (
-                <li key={item}>
+              {SERVICES.map((service) => (
+                <li key={service.id}>
                   <Link
                     to="/services"
                     className="text-blue-200/70 hover:text-white flex items-center gap-2 transition-all duration-200 group text-sm"
@@ -116,7 +166,7 @@ export default function Footer() {
                       size={12}
                       className="text-manatech-teal group-hover:translate-x-1 transition-transform"
                     />
-                    {item}
+                    {service.title}
                   </Link>
                 </li>
               ))}
