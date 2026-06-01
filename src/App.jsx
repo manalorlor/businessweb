@@ -10,6 +10,7 @@ import Payment from '@/pages/Payment';
 import NotFound from '@/pages/NotFound';
 import { ChevronUp, MessageCircle, Cookie } from 'lucide-react';
 import { CONTACT_INFO } from '@/constants';
+import Logo from '@/components/Logo';
 
 /* ── Scroll restoration on route change ─────────────────────────────────── */
 function ScrollToTop() {
@@ -113,8 +114,8 @@ function PageLoader() {
       }`}
     >
       <div className="space-y-6 text-center">
-        <div className="w-20 h-20 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center mx-auto shadow-2xl overflow-hidden">
-          <img src="/favicon.svg" alt="MANATECH" className="w-12 h-12" />
+        <div className="w-20 h-20 rounded-2xl bg-white border border-white/10 flex items-center justify-center mx-auto shadow-2xl overflow-hidden">
+          <Logo size={52} />
         </div>
         <div className="space-y-1.5">
           <div className="text-3xl font-bold text-white tracking-[0.2em]">MANATECH</div>
