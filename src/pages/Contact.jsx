@@ -146,13 +146,13 @@ export default function Contact() {
     <div className="flex flex-col w-full bg-white">
       {/* Response-time toast */}
       {showToast && (
-        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[52] flex items-center gap-3 bg-manatech-dark/95 text-white px-5 py-4 rounded-2xl shadow-2xl border border-white/10 backdrop-blur-xl max-w-xs w-full mx-4">
-          <div className="w-8 h-8 rounded-lg bg-manatech-orange/20 flex items-center justify-center text-manatech-orange shrink-0">
-            <Zap size={16} />
+        <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-[52] flex items-center gap-3 bg-manatech-dark/95 text-white px-5 py-4 rounded-2xl shadow-2xl border border-white/10 backdrop-blur-xl max-w-xs w-[calc(100%-2rem)]">
+          <div className="w-8 h-8 rounded-lg bg-manatech-teal/20 flex items-center justify-center text-manatech-teal shrink-0">
+            <Clock size={16} />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-bold text-white">Quick Response Guaranteed</p>
-            <p className="text-[11px] text-white/50">We typically reply within 4 business hours.</p>
+            <p className="text-xs font-bold text-white">Response Turnaround</p>
+            <p className="text-[11px] text-white/60">Our technical desk typically replies within 4 business hours.</p>
           </div>
           <button
             onClick={() => setShowToast(false)}
